@@ -1,0 +1,20 @@
+#te-pruce {
+    display: block;
+}
+
+table > * > :is(td, th),
+table > * > * > :is(td, th) {
+    border: 1px solid;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.rafste > * > td::before,
+.rafste > * > * > td::before {
+    content: "-" attr(data-rafsi) "-";
+    font-style: italic;
+    display: block;
+
+}

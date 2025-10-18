@@ -1,0 +1,203 @@
+import vlaste from "/vlaste.json" with { type: 'json' }
+
+// From chapter 3.7 of "Complete Lojban Language".
+// Used to skip table rows for impermissible clusters.
+const ALLOWED_CLUSTERS = [
+    'bl', 'br',
+    'cf', 'ck', 'cl', 'cm', 'cn', 'cp', 'cr', 'ct',
+    'dj', 'dr', 'dz',
+    'fl', 'fr',
+    'gl', 'gr',
+    'jb', 'jd', 'jg', 'jm', 'jv',
+    'kl', 'kr',
+    'ml', 'mr',
+    'pl', 'pr',
+    'sf', 'sk', 'sl', 'sm', 'sn', 'sp', 'sr', 'st',
+    'tc', 'tr', 'ts',
+    'vl', 'vr',
+    'xl', 'xr',
+    'zb', 'zd', 'zg', 'zm', 'zv',
+];
+const CONSONANTS = ['b', 'c', 'd', 'f', 'g', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 's', 't', 'v', 'x', 'z'];
+const VOWELS = ['a', 'e', 'i', 'o', 'u'];
+const VOWELS_WITH_YhY = VOWELS.map(e => VOWELS.map(v => e + "'" + v)).flat(1)
+const DOUBLE_VOWELS = ['au', 'ai', 'ei', 'oi'].concat(VOWELS_WITH_YhY)
+
+const url = new URL(location.href)
+
+function createTwoConsonantTable(letter, consonants, isCCV) {
+    const rows = consonants.map(e => ({
+        tag: "tr",
+        contents: [
+            {
+                tag: "th",
+                contents: e,
+            },
+            {
+                tag: "td",
+                "data-rafsi": isCCV ? letter + e + "a" : letter + "a" + e
+            },
+            {
+                tag: "td",
+                "data-rafsi": isCCV ? letter + e + "e" : letter + "e" + e
+            },
+            {
+                tag: "td",
+                "data-rafsi": isCCV ? letter + e + "i" : letter + "i" + e
+            },
+            {
+                tag: "td",
+                "data-rafsi": isCCV ? letter + e + "o" : letter + "o" + e
+            },
+            {
+                tag: "td",
+                "data-rafsi": isCCV ? letter + e + "u" : letter + "u" + e
+            },
+        ],
+    }))
+    const t = $.create("table", {
+        class: "rafste",
+        contents: [
+            {
+                tag: "tr",
+                contents: [
+                    {
+                        tag: "th",
+                        contents: [
+                            "→ Vowel",
+                            { tag: "br" },
+                            "↓ Consonant",
+                        ]
+                    },
+                    {
+                        tag: "th",
+                        contents: "a",
+                    },
+                    {
+                        tag: "th",
+                        contents: "e",
+                    },
+                    {
+                        tag: "th",
+                        contents: "i",
+                    },
+                    {
+                        tag: "th",
+                        contents: "o",
+                    },
+                    {
+                        tag: "th",
+                        contents: "u",
+                    }
+                ]
+            },
+            ...rows
+        ]
+    })
+    return t
+}
+
+function createTwoVowelTable(letter) {
+    const rows = DOUBLE_VOWELS.map(e => ({
+        tag: "tr",
+        contents: [
+            {
+                tag: "th",
+                contents: e,
+            },
+            {
+                tag: "td",
+                "data-rafsi": letter + e,
+            },
+        ],
+    }))
+    const t = $.create("table", {
+        class: "rafste",
+        contents: [
+            {
+                tag: "tr",
+                contents: [
+                    {
+                        tag: "th",
+                        contents: "Vowels",
+                    },
+                    {
+                        tag: "th",
+                        contents: "v",
+                    },
+                ]
+            },
+            ...rows
+        ]
+    })
+    return t
+}
+
+function populateTable(t, entries) {
+    for (let [r, v] of entries) {
+        t.querySelector(`[data-rafsi="${r}"]`)._.contents([{
+            tag: "a",
+            href: "https://vlasisku.lojban.org/" + v,
+            contents: [
+                { tag: "i", lang: "jbo", contents: v }
+            ]
+        }])
+    }
+}
+
+function getRafsi(letter) {
+    const OUT = document.getElementById('te-pruce')
+    const vlasteMap = Object.entries(vlaste)
+    const relevantEntries = vlasteMap.filter(([r, v]) => r.startsWith(letter))
+    const CCVentries = relevantEntries.filter(([r, v]) => CONSONANTS.includes(r[1]))
+    const CVCentries = relevantEntries.filter(([r, v]) => CONSONANTS.includes(r[2]))
+    const CVVentries = relevantEntries.filter(([r, v]) => DOUBLE_VOWELS.includes(r.slice(1)))
+
+    //console.log(CCVentries)
+    //console.log(CVCentries)
+    //console.log(CVVentries)
+
+    const CCVrafsiSection = []
+    const permittedClusterEnds = ALLOWED_CLUSTERS.filter(e => e.startsWith(letter)).map(e => e.slice(1))
+    if (permittedClusterEnds.length !== 0) {
+        const CCVtable = createTwoConsonantTable(letter, permittedClusterEnds, true);
+        populateTable(CCVtable, CCVentries)
+        CCVrafsiSection.push(
+            $.create("h2", { contents: `${letter}CV rafsi` }),
+            CCVtable,
+        )
+    }
+    const CVCtable = createTwoConsonantTable(letter, CONSONANTS, false);
+    populateTable(CVCtable, CVCentries)
+    const CVVtable = createTwoVowelTable(letter);
+    populateTable(CVVtable, CVVentries)
+    OUT.innerText = "" // delete all children
+    OUT._.contents([
+        $.create("h2", { contents: `${letter}VC rafsi` }),
+        CVCtable,
+        ...CCVrafsiSection,
+        $.create("h2", { contents: `${letter}VV and ${letter}V'V rafsi` }),
+        CVVtable,
+    ])
+}
+
+document.querySelectorAll("#ro-lerfu > button")
+    .forEach(e => e.addEventListener("click", function() {
+        const letter = this.value;
+        url.hash = "#" + letter
+        location.href = url
+        getRafsi(letter)
+    }))
+
+document.addEventListener("keypress", function(e) {
+    const letter = e.key.toLowerCase();
+    if (!CONSONANTS.includes(letter)) return;
+    url.hash = "#" + letter
+    location.href = url
+    getRafsi(letter)
+})
+
+const fragment = url.hash.replace('#', '');
+if (CONSONANTS.includes(fragment)) {
+    getRafsi(fragment)
+}
