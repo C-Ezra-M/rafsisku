@@ -8,5 +8,11 @@ tasks:
       - jekyll s -s src
   zbasu:
     cmds:
-      # SOMETHING TO DISTILL THE JBOVLASTE DATASET
+      - task: jdikygau
+      - task: zbasu-poho
+  zbasu-poho:
+    cmds:
       - jekyll b -s src
+  jdikygau:
+    cmds:
+      - python distiller.py jbovlaste-en.xml > src/vlaste.json

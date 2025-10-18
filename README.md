@@ -16,9 +16,11 @@ la rafsisku (made by C.Ezra.M) is a tool:
 
 ## Development
 
-`task` and `jekyll` are not required, but they're what I use in this case.
+`task` and `jekyll` are not required, but they're what I use in this case. `python`, however, is required.
 
 - `task cipra` serves the site on localhost
-- `task zbasu` builds the site to `_site`
+- `task zbasu-poho` builds the site to `_site`
+- `task jdikygau` reduces the jbovlaste dataset to just the words that have rafsi, and the words they are assigned to
+- `task zbasu` runs the `zbasu-poho` and `jdikygau` tasks at once
 
 Occasionally, a jbovlaste dataset update may be required.
