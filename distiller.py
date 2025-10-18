@@ -15,6 +15,8 @@ for w in words:
     if not rafsi:
         continue
     valsi = w.getAttribute("word")
-    data[valsi] = [r.childNodes[0].data for r in rafsi]
+    rafsi_list = [r.childNodes[0].data for r in rafsi]
+    for r in rafsi_list:
+        data[r] = valsi
 
 print(dumps(data, separators=(',', ':')))
