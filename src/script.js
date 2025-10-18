@@ -1,4 +1,4 @@
-import vlaste from "vlaste.json" with { type: 'json' }
+import vlaste from "./vlaste.json" with { type: 'json' }
 
 // From chapter 3.7 of "Complete Lojban Language".
 // Used to skip table rows for impermissible clusters.
