@@ -2,10 +2,10 @@
 
 ## to ti mo toi
 
-fi'e la .ezras. cu tutci
+fi'e la .ezras. cu tutci leka
 
-- leka sisku le rafsi .e le selrafsi
-- kei .e leka cipcta le rafsi leka rafsi tu'a noda
+- sisku le rafsi .e le selrafsi
+- gi'e cipcta le rafsi leka rafsi tu'a noda
 
 ## Introduction
 
