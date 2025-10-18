@@ -21,7 +21,7 @@ const ALLOWED_CLUSTERS = [
 const CONSONANTS = ['b', 'c', 'd', 'f', 'g', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 's', 't', 'v', 'x', 'z'];
 const VOWELS = ['a', 'e', 'i', 'o', 'u'];
 const VOWELS_WITH_YhY = VOWELS.map(e => VOWELS.map(v => e + "'" + v)).flat(1)
-const DOUBLE_VOWELS = ['au', 'ai', 'ei', 'oi'].concat(VOWELS_WITH_YhY)
+const DIPHTHONGS = ['ai', 'au', 'ei', 'oi']
 
 const url = new URL(location.href)
 
@@ -98,7 +98,69 @@ function createTwoConsonantTable(letter, consonants, isCCV) {
 }
 
 function createTwoVowelTable(letter) {
-    const rows = DOUBLE_VOWELS.map(e => ({
+    const createCells = (e) => (
+        VOWELS.map(v => ({
+            tag: "td",
+            "data-rafsi": letter + v + "'" + e,
+        }))
+    )
+    const rows = VOWELS.map(e => [
+        {
+            tag: "tr",
+            contents: [
+                {
+                    tag: "th",
+                    contents: e,
+                },
+                ...createCells(e)
+            ],
+        }
+    ]).flat(1)
+    //debugger
+    const t = $.create("table", {
+        class: "rafste",
+        contents: [
+            {
+                tag: "tr",
+                contents: [
+                    {
+                        tag: "th",
+                        contents: [
+                            "→ First vowel",
+                            { tag: "br" },
+                            "↓ Second vowel",
+                        ],
+                    },
+                    {
+                        tag: "th",
+                        contents: 'a',
+                    },
+                    {
+                        tag: "th",
+                        contents: 'e',
+                    },
+                    {
+                        tag: "th",
+                        contents: 'i',
+                    },
+                    {
+                        tag: "th",
+                        contents: 'o',
+                    },
+                    {
+                        tag: "th",
+                        contents: 'u',
+                    },
+                ]
+            },
+            ...rows
+        ]
+    })
+    return t
+}
+
+function createDiphthongTable(letter) {
+    const rows = DIPHTHONGS.map(e => ({
         tag: "tr",
         contents: [
             {
@@ -119,11 +181,11 @@ function createTwoVowelTable(letter) {
                 contents: [
                     {
                         tag: "th",
-                        contents: "Vowels",
+                        contents: "Diphthong",
                     },
                     {
                         tag: "th",
-                        contents: "v",
+                        contents: "Rafsi",
                     },
                 ]
             },
@@ -135,7 +197,7 @@ function createTwoVowelTable(letter) {
 
 function populateTable(t, entries) {
     for (let [r, v] of entries) {
-        t.querySelector(`[data-rafsi="${r}"]`)._.contents([{
+        t.querySelector(`[data-rafsi="${r}"]`)?._.contents([{
             tag: "a",
             href: "https://vlasisku.lojban.org/" + v,
             contents: [
@@ -151,7 +213,8 @@ function getRafsi(letter) {
     const relevantEntries = vlasteMap.filter(([r, v]) => r.startsWith(letter))
     const CCVentries = relevantEntries.filter(([r, v]) => CONSONANTS.includes(r[1]))
     const CVCentries = relevantEntries.filter(([r, v]) => CONSONANTS.includes(r[2]))
-    const CVVentries = relevantEntries.filter(([r, v]) => DOUBLE_VOWELS.includes(r.slice(1)))
+    const CVVentries = relevantEntries.filter(([r, v]) => DIPHTHONGS.includes(r.slice(1)))
+    const CVhVentries = relevantEntries.filter(([r, v]) => VOWELS_WITH_YhY.includes(r.slice(1)))
 
     //console.log(CCVentries)
     //console.log(CVCentries)
@@ -169,15 +232,19 @@ function getRafsi(letter) {
     }
     const CVCtable = createTwoConsonantTable(letter, CONSONANTS, false);
     populateTable(CVCtable, CVCentries)
-    const CVVtable = createTwoVowelTable(letter);
+    const CVVtable = createDiphthongTable(letter);
     populateTable(CVVtable, CVVentries)
+    const CVhVtable = createTwoVowelTable(letter);
+    populateTable(CVhVtable, CVhVentries)
     OUT.innerText = "" // delete all children
     OUT._.contents([
         $.create("h2", { contents: `${letter}VC rafsi` }),
         CVCtable,
         ...CCVrafsiSection,
-        $.create("h2", { contents: `${letter}VV and ${letter}V'V rafsi` }),
+        $.create("h2", { contents: `${letter}VV rafsi` }),
         CVVtable,
+        $.create("h2", { contents: `${letter}V'V rafsi` }),
+        CVhVtable,
     ])
 }
 
