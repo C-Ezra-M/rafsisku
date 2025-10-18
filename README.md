@@ -24,3 +24,7 @@ la rafsisku (made by C.Ezra.M) is a tool:
 - `task zbasu` runs the `zbasu-poho` and `jdikygau` tasks at once
 
 Occasionally, a jbovlaste dataset update may be required.
+
+## Notes
+
+This tool does not yet search for experimental rafsi.
