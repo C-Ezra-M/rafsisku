@@ -30,8 +30,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Distill the jbovlaste dataset
-        run: python distiller.py jbovlaste-en.xml > src/vlaste.json
+      #- name: Distill the jbovlaste dataset
+      #  run: python distiller.py jbovlaste-en.xml > src/vlaste.json
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
