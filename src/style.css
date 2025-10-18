@@ -7,6 +7,11 @@ table > * > * > :is(td, th) {
     border: 1px solid;
 }
 
+table > * > :is(td:empty, th:empty),
+table > * > * > :is(td:empty, th:empty) {
+    background-color: #DDD;
+}
+
 table {
     border-collapse: collapse;
 }
