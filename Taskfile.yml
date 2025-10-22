@@ -15,4 +15,4 @@ tasks:
       - jekyll b -s src
   jdikygau:
     cmds:
-      - python distiller.py jbovlaste-en.xml > src/vlaste.json
+      - python distiller.py jbovlaste-en.xml experimental.json > src/vlaste.json
