@@ -8,8 +8,13 @@ table > * > * > :is(td, th) {
 }
 
 table > * > :is(td:empty, th:empty),
-table > * > * > :is(td:empty, th:empty) {
+table > * > * > :is(td:empty, th:empty),
+.unassigned {
     background-color: #DDD;
+}
+
+.experimental {
+    background-color: #FF4;
 }
 
 table {
@@ -21,5 +26,4 @@ table {
     content: "-" attr(data-rafsi) "-";
     font-style: italic;
     display: block;
-
 }

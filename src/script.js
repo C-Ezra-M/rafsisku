@@ -197,13 +197,23 @@ function createDiphthongTable(letter) {
 
 function populateTable(t, entries) {
     for (let [r, v] of entries) {
-        t.querySelector(`[data-rafsi="${r}"]`)?._.contents([{
+        let experimental = false
+        if (v.endsWith("*")) {
+            v = v.replace(/\*$/, "")
+            experimental = true
+        }
+        const cell = [{
             tag: "a",
             href: "https://vlasisku.lojban.org/" + v,
             contents: [
-                { tag: "i", lang: "jbo", contents: v }
+                { tag: "i", lang: "jbo", contents: v },
             ]
-        }])
+        }]
+        if (experimental) {
+            cell.push("*")
+            t.querySelector(`[data-rafsi="${r}"]`)?._.set('className', 'experimental')
+        }
+        t.querySelector(`[data-rafsi="${r}"]`)?._.contents(cell)
     }
 }
 
