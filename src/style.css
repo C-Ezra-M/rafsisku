@@ -17,6 +17,14 @@ table > * > * > :is(td:empty, th:empty),
     background-color: #FF4;
 }
 
+.swatch {
+    width: 1em;
+    height: 1em;
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 table {
     border-collapse: collapse;
 }
