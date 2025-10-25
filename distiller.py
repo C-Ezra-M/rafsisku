@@ -1,10 +1,17 @@
 from sys import argv
 from xml.dom.minidom import parse
-from json import dumps
+from json import dumps, loads
 
-# argv[1] is the file to distill
+# argv[1] is the XML file to distill
+# argv[2] is the JSON file for extra rafsi definitions
 dom = parse(argv[1])
-data = {}
+with open(argv[2]) as f:
+    data = loads(f.read())
+for k in data:
+    if isinstance(data[k], list):
+        data[k] = [l + "*" for l in data[k]]
+    else:
+        data[k] += "*" # asterisk: experimental
 #print(dir(dom))
 
 directions = dom.getElementsByTagName("direction")
