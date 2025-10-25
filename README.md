@@ -1,6 +1,6 @@
 # la rafsisku
 
-## to ti mo toi
+## to( ti mo )toi
 
 fi'e la .ezras. cu tutci leka
 
@@ -27,4 +27,4 @@ Occasionally, a jbovlaste dataset update may be required.
 
 ## Notes
 
-This tool does not yet search for experimental rafsi.
+This tool can search for experimental rafsi. The rafsi come from both jbovlaste and a [list in the roljbogu'e Discord server compiled by la nalvai](https://discord.com/channels/771781383361921024/1304486371183951884/1429272862988177579), which contains rafsi recognized by latkerlo-jvotci.
