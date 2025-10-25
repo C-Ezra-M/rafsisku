@@ -197,20 +197,31 @@ function createDiphthongTable(letter) {
 
 function populateTable(t, entries) {
     for (let [r, v] of entries) {
-        let experimental = false
-        if (v.endsWith("*")) {
-            v = v.replace(/\*$/, "")
-            experimental = true
+        if (!(v instanceof Array)) {
+            v = [{word: v, experimental: false}]
+        } else {
+            v = v.map(e => ({word: e, experimental: false}))
         }
-        const cell = [{
-            tag: "a",
-            href: "https://vlasisku.lojban.org/" + v,
-            contents: [
-                { tag: "i", lang: "jbo", contents: v },
-            ]
-        }]
-        if (experimental) {
-            cell.push("*")
+        for (let w of v) {
+            if (w.word.endsWith("*")) {
+                w.word = w.word.replace(/\*$/, "")
+                w.experimental = true
+            }
+        }
+        const cell = v.map(e => [
+            {
+                tag: "a",
+                href: "https://vlasisku.lojban.org/" + e.word,
+                contents: [
+                    { tag: "i", lang: "jbo", contents: e.word },
+                ]
+            },
+            ...(e.experimental ? ["*", { tag: "br" }] : [])
+        ]).flat(1)
+        if (cell.at(-1).tag == "br") {
+            cell.pop()
+        }
+        if (v.find(e => e.experimental)) {
             t.querySelector(`[data-rafsi="${r}"]`)?._.set('className', 'experimental')
         }
         t.querySelector(`[data-rafsi="${r}"]`)?._.contents(cell)
