@@ -8,7 +8,10 @@ dom = parse(argv[1])
 with open(argv[2]) as f:
     data = loads(f.read())
 for k in data:
-    data[k] += "*" # asterisk: experimental
+    if isinstance(data[k], list):
+        data[k] = [l + "*" for l in data[k]]
+    else:
+        data[k] += "*" # asterisk: experimental
 #print(dir(dom))
 
 directions = dom.getElementsByTagName("direction")
