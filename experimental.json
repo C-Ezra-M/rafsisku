@@ -76,6 +76,7 @@
     "pi'u": "pimlu",
     "pid": "pindi",
     "pog": "proga",
+    "pok": "posko",
     "pov": "po'o",
     "puc": "pulce",
     "pup": "pupsu",
@@ -87,6 +88,7 @@
     "saf": "sa",
     "se'e": "selja'e",
     "se'i": "sefsi",
+    "se'o": "sfeno",
     "seb": "steba",
     "sem": "su'ei",
     "sfe": "sfeno",
@@ -102,12 +104,10 @@
     "te'e": "tende",
     "te'o": "stero",
     "tez": "te'o",
+    "to'o": "tonzo",
     "top": "tokpo",
     "tos": "tonsi",
-    "toz": [
-        "to'ai",
-        "tonzo"
-    ],
+    "toz": "to'ai",
     "tso": [
         "dutso",
         "tsako"
