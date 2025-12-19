@@ -4,7 +4,7 @@
 
 fi'e la .ezras. cu tutci leka
 
-- sisku le rafsi .e le selrafsi
+- sisku tu'a le rafsi .e le selrafsi
 - gi'e cipcta le cumki rafsi be noda
 
 ## Introduction
