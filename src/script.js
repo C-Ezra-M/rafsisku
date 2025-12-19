@@ -211,7 +211,7 @@ function populateTable(t, entries) {
         const cell = v.map(e => [
             {
                 tag: "a",
-                href: "https://vlasisku.lojban.org/" + e.word,
+                href: "https://paclatkerlo.com/#" + e.word,
                 contents: [
                     { tag: "i", lang: "jbo", contents: e.word },
                 ]
