@@ -40,6 +40,7 @@
     "jat": "janta",
     "je'o": "jegvo",
     "jeb": "je'ebzi",
+    "jgo": "majgo",
     "jgu": "jguna",
     "jid": "jidge",
     "jo'o": "jordo",
@@ -55,7 +56,10 @@
     "kex": "ke'ei'a",
     "kib": "kibro",
     "kig": "kligo",
-    "kim": "kei'ei",
+    "kim": [
+        "kei'ei",
+        "kilma"
+    ],
     "kis": "kisto",
     "koj": "kojna",
     "lap": "lacpu",
@@ -77,6 +81,7 @@
     "pid": "pindi",
     "pog": "proga",
     "pok": "posko",
+    "pom": "pombo",
     "pov": "po'o",
     "puc": "pulce",
     "pup": "pupsu",
