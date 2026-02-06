@@ -166,19 +166,6 @@ function createTwoVowelTable(letter) {
 }
 
 function createDiphthongTable(letter) {
-    const rows = DIPHTHONGS.map(e => ({
-        tag: "tr",
-        contents: [
-            {
-                tag: "th",
-                contents: e,
-            },
-            {
-                tag: "td",
-                "data-rafsi": letter + e,
-            },
-        ],
-    }))
     const t = $.create("table", {
         class: "rafste",
         contents: [
@@ -189,13 +176,29 @@ function createDiphthongTable(letter) {
                         tag: "th",
                         contents: "Diphthong",
                     },
+                    ...DIPHTHONGS.map(
+                        e => ({
+                            tag: "th",
+                            contents: e,
+                        }),
+                    )
+                ]
+            },
+            {
+                tag: "tr",
+                contents: [
                     {
                         tag: "th",
                         contents: "Rafsi",
                     },
+                    ...DIPHTHONGS.map(
+                        e => ({
+                            tag: "td",
+                            "data-rafsi": letter + e,
+                        }),
+                    )
                 ]
-            },
-            ...rows
+            }
         ]
     })
     return t
@@ -275,7 +278,7 @@ function getRafsi(letter) {
             CVVtable,
         ]),
         makeSection([
-             $.create("h2", { contents: `${letter}V'V rafsi` }),
+            $.create("h2", { contents: `${letter}V'V rafsi` }),
             CVhVtable,
         ])
     ])
