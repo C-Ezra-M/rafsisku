@@ -1,5 +1,21 @@
+body {
+    max-width: 820px;
+    font-family: Arial, sans-serif;
+    margin: 1rem auto;
+    padding: 0rem 1rem;
+    background-color: #FFF;
+    border: 3px double #111;
+}
+
+html {
+    background-color: #DDD;
+    padding: 0 0.5rem;
+}
+
 #te-pruce {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1rem;
 }
 
 table > * > :is(td, th),
