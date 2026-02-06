@@ -25,9 +25,10 @@ const DIPHTHONGS = ['ai', 'au', 'ei', 'oi']
 
 const url = new URL(location.href)
 
-function makeSection(items) {
+function makeSection(items, cls) {
     return $.create("section", {
         contents: items,
+        className: cls,
     })
 }
 
@@ -271,16 +272,16 @@ function getRafsi(letter) {
         makeSection([
             $.create("h2", { contents: `${letter}VC rafsi` }),
             CVCtable
-        ]),
-        CCVrafsiSection.length !== 0 ? makeSection(CCVrafsiSection) : [],
+        ], "cvc-rafste"),
+        CCVrafsiSection.length !== 0 ? makeSection(CCVrafsiSection, "ccv-rafste") : [],
         makeSection([
             $.create("h2", { contents: `${letter}VV rafsi` }),
             CVVtable,
-        ]),
+        ], "cvv-rafste"),
         makeSection([
             $.create("h2", { contents: `${letter}V'V rafsi` }),
             CVhVtable,
-        ])
+        ], "cvhv-rafste")
     ])
 }
 

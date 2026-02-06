@@ -12,6 +12,10 @@ html {
     padding: 0 0.5rem;
 }
 
+.te-pruce-sruri {
+    container: te-pruce / inline-size;
+}
+
 #te-pruce {
     display: grid;
     gap: 0 1rem;
@@ -19,18 +23,25 @@ html {
     grid-template-rows: masonry;
 }
 
-@supports not(grid-template-rows: masonry) {
+@supports not (grid-template-rows: masonry) {
     #te-pruce {
         grid-template-rows: auto auto auto;
-        #cvc-gimste {
+        .cvc-rafste {
             grid-row: 1/-1;
         }
+    }
+}
+
+@container te-pruce (max-width: 768px) {
+    #te-pruce {
+        display: block;
     }
 }
 
 table > * > :is(td, th),
 table > * > * > :is(td, th) {
     border: 1px solid;
+    padding: 1px 2px;
 }
 
 table > * > :is(td:empty, th:empty),
@@ -60,4 +71,24 @@ table {
     content: "-" attr(data-rafsi) "-";
     font-style: italic;
     display: block;
+}
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    > h1 {
+        flex: 1 0 100%;
+        margin-bottom: 0;
+    }
+}
+
+.intro {
+    > :first-child {
+        margin-top: 0;
+    }
+}
+
+hr.full {
+    clear: both;
 }
