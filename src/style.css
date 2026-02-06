@@ -13,9 +13,19 @@ html {
 }
 
 #te-pruce {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 0 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: masonry;
+}
+
+@supports not(grid-template-rows: masonry) {
+    #te-pruce {
+        grid-template-rows: auto auto auto;
+        #cvc-gimste {
+            grid-row: 1/-1;
+        }
+    }
 }
 
 table > * > :is(td, th),
