@@ -25,6 +25,12 @@ const DIPHTHONGS = ['ai', 'au', 'ei', 'oi']
 
 const url = new URL(location.href)
 
+function makeSection(items) {
+    return $.create("section", {
+        contents: items,
+    })
+}
+
 function createTwoConsonantTable(letter, consonants, isCCV) {
     const rows = consonants.map(e => ({
         tag: "tr",
@@ -259,13 +265,19 @@ function getRafsi(letter) {
     populateTable(CVhVtable, CVhVentries)
     OUT.innerText = "" // delete all children
     OUT._.contents([
-        $.create("h2", { contents: `${letter}VC rafsi` }),
-        CVCtable,
-        ...CCVrafsiSection,
-        $.create("h2", { contents: `${letter}VV rafsi` }),
-        CVVtable,
-        $.create("h2", { contents: `${letter}V'V rafsi` }),
-        CVhVtable,
+        makeSection([
+            $.create("h2", { contents: `${letter}VC rafsi` }),
+            CVCtable
+        ]),
+        CCVrafsiSection.length !== 0 ? makeSection(CCVrafsiSection) : [],
+        makeSection([
+            $.create("h2", { contents: `${letter}VV rafsi` }),
+            CVVtable,
+        ]),
+        makeSection([
+             $.create("h2", { contents: `${letter}V'V rafsi` }),
+            CVhVtable,
+        ])
     ])
 }
 
