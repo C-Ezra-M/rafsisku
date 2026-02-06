@@ -2,10 +2,11 @@
 
 ## to( ti mo )toi
 
-fi'e la .ezras. cu tutci leka
+be fi'e la .ezras. cu tutci leka
 
 - sisku tu'a le rafsi .e le selrafsi be ri
-- gi'e cipcta le cumki rafsi be noda
+- gi'e cipra lodu'u makau cumki rafsi noda
+- gi'e (baku) finti lo rafsi lo gismu
 
 ## Introduction
 
@@ -13,6 +14,7 @@ la rafsisku (made by C.Ezra.M) is a tool:
 
 - to search for rafsi and the words they are rafsi of
 - to check which possible rafsi have no words assigned to them
+- (coming soon) to create rafsi from gismu
 
 ## Development
 
